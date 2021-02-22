@@ -7,6 +7,7 @@ metadata:
   name: csi-attacher-iscsiplugin
   labels:
     app: csi-attacher-iscsiplugin
+  namespace: csi-iscsi
 spec:
   selector:
     app: csi-attacher-iscsiplugin
@@ -16,12 +17,16 @@ spec:
 
 ---
 kind: StatefulSet
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 metadata:
   name: csi-attacher-iscsiplugin
+  namespace: csi-iscsi
 spec:
   serviceName: "csi-attacher"
   replicas: 1
+  selector:
+    matchLabels:
+      app: csi-attacher-iscsiplugin
   template:
     metadata:
       labels:
@@ -43,7 +48,7 @@ spec:
               mountPath: /csi
 
         - name: iscsi
-          image: iscsiplugin:latest
+          image: quay.io/k8scsi/iscsiplugin:canary
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"

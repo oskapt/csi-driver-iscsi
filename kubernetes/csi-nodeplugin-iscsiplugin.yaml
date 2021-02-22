@@ -1,9 +1,10 @@
 # This YAML file contains driver-registrar & csi driver nodeplugin API objects
 # that are necessary to run CSI nodeplugin for iscsi
 kind: DaemonSet
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 metadata:
   name: csi-nodeplugin-iscsiplugin
+  namespace: csi-iscsi
 spec:
   selector:
     matchLabels:
@@ -42,7 +43,7 @@ spec:
             capabilities:
               add: ["SYS_ADMIN"]
             allowPrivilegeEscalation: true
-          image: iscsiplugin:latest
+          image: quay.io/k8scsi/iscsiplugin:canary
           args :
             - "--nodeid=$(NODE_ID)"
             - "--endpoint=$(CSI_ENDPOINT)"

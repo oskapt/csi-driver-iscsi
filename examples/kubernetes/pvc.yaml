@@ -8,9 +8,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: manual
-  selector:
-    matchExpressions:
-    - key: name
-      operator: In
-      values: ["data-iscsiplugin"]
+  storageClassName: csi-iscsi
+  volumeName: data-iscsiplugin
+
