@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: csi-iscsi
+resources:
+- namespace.yaml
+- csi-attacher-iscsiplugin.yaml
+- csi-attacher-rbac.yaml
+- csi-nodeplugin-iscsiplugin.yaml
+- csi-nodeplugin-rbac.yaml
